@@ -3,15 +3,19 @@ import { useEffect, useState } from "react";
 export default function MouseFollower() {
   const [enabled, setEnabled] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const handleMove = (event) => {
       const { clientX, clientY } = event;
       setPosition({ x: clientX, y: clientY });
+      setIsVisible(true);
     };
 
     if (enabled) {
       window.addEventListener("pointermove", handleMove);
+    } else {
+      setIsVisible(false);
     }
 
     return () => {
@@ -21,7 +25,7 @@ export default function MouseFollower() {
 
   return (
     <>
-      {enabled && (
+      {enabled && isVisible && (
         <div
           style={{
             position: "absolute",
@@ -37,7 +41,13 @@ export default function MouseFollower() {
           }}
         ></div>
       )}
-      <h1>Mouse Follower</h1>
+      <h1
+        style={{
+          fontSize: "2rem",
+        }}
+      >
+        Mouse Follower
+      </h1>
       <button
         style={{ minWidth: "120px" }}
         onClick={() => setEnabled(!enabled)}
