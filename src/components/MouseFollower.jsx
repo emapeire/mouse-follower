@@ -5,6 +5,7 @@ export default function MouseFollower() {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
 
+  // pointer move
   useEffect(() => {
     const handleMove = (event) => {
       const { clientX, clientY } = event;
@@ -20,6 +21,15 @@ export default function MouseFollower() {
 
     return () => {
       window.removeEventListener("pointermove", handleMove);
+    };
+  }, [enabled]);
+
+  // change body className
+  useEffect(() => {
+    document.body.classList.toggle("crosshair", enabled);
+
+    return () => {
+      document.body.classList.remove("crosshair");
     };
   }, [enabled]);
 
@@ -44,6 +54,7 @@ export default function MouseFollower() {
       <h1
         style={{
           fontSize: "2rem",
+          cursor: "default",
         }}
       >
         Mouse Follower
