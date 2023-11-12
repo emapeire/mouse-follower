@@ -54,13 +54,16 @@ export default function MouseFollower() {
       <h1
         style={{
           fontSize: "2rem",
-          cursor: "default",
+          cursor: `${enabled ? "crosshair" : "default"}`,
         }}
       >
         Mouse Follower
       </h1>
       <button
-        style={{ minWidth: "120px" }}
+        style={{
+          minWidth: "120px",
+          cursor: `${enabled ? "crosshair" : "pointer"}`,
+        }}
         onClick={() => setEnabled(!enabled)}
       >
         {enabled ? "Disable" : "Enable"}
